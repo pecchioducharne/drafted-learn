@@ -29,7 +29,7 @@ You need Claude Code. If you don't have it: [claude.ai/code](https://claude.ai/c
 Then run these two commands:
 
 ```bash
-claude /plugin marketplace add pecchioducharne/drafted-learn
+claude /plugin marketplace add draftedlabs/drafted-learn
 claude /plugin install drafted-learn@drafted-learn
 ```
 

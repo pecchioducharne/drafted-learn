@@ -7,7 +7,7 @@
     "url": "https://joindrafted.com"
   },
   "homepage": "https://joindrafted.com/students",
-  "repository": "https://github.com/drafted-labs/drafted-learn",
+  "repository": "https://github.com/draftedlabs/drafted-learn",
   "license": "MIT",
   "keywords": ["education", "ai", "ml", "learning", "agents", "drafted"]
 }
