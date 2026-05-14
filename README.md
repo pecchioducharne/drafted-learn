@@ -1,70 +1,118 @@
 # drafted-learn
 
-A Claude Code plugin that shows a rotating AI/ML educational fact on every prompt — branded by [Drafted Labs](https://joindrafted.com/students).
+> *Because staring at a spinner is a waste of a perfectly good brain.*
 
-Built for students entering the AI workforce. Every Claude session is a micro-lesson.
+A Claude Code plugin that teaches you AI/ML while Claude is thinking. Every time you hit enter, a fact from the frontier appears in your terminal — tokenization, transformers, RLHF, agent architecture, the works.
+
+94 facts. Zero extra time required. You were going to wait anyway.
 
 ```
   ╔══════════════════════════════════════════════════════════════╗
-  ║ FACT #045: AGENTS                                            ║
+  ║ FACT #028: TRANSFORMERS & LLMS                               ║
   ╠══════════════════════════════════════════════════════════════╣
   ║                                                              ║
-  ║ Claude Code is itself an AI agent — it reads your           ║
-  ║ codebase, plans edits, writes files, runs bash commands,    ║
-  ║ and iterates until your task is complete.                   ║
+  ║ RLHF (Reinforcement Learning from Human Feedback)           ║
+  ║ fine-tunes a base LLM using human preference rankings,      ║
+  ║ making outputs more aligned and helpful. Used in            ║
+  ║ ChatGPT and Claude.                                         ║
   ║                                                              ║
   ║ Learn more at joindrafted.com/students                       ║
   ╚══════════════════════════════════════════════════════════════╝
 ```
 
-- Box adapts to your terminal width automatically
-- CTA link is clickable in iTerm2 and other OSC 8 terminals
-- Fires on every prompt submission via `UserPromptSubmit` hook
-- Zero latency — runs async, writes directly to `/dev/tty`
+---
 
 ## Install
+
+You need Claude Code. If you don't have it: [claude.ai/code](https://claude.ai/code).
+
+Then run these two commands:
 
 ```bash
 claude /plugin marketplace add pecchioducharne/drafted-learn
 claude /plugin install drafted-learn@drafted-learn
 ```
 
-Two commands. Done.
+That's it. Start a new session and send any message. The box appears.
 
-## What you get
+**To uninstall:**
+```bash
+claude /plugin uninstall drafted-learn
+```
 
-**94 facts** across 8 categories:
+---
 
-| Category | Topics |
+## What you'll learn
+
+94 facts across 8 categories, rotating randomly:
+
+| Category | What's covered |
 |---|---|
-| Foundations | Tokens, context windows, temperature, overfitting |
-| Neural Networks | Backprop, gradient descent, CNN, RNN, dropout |
-| Transformers & LLMs | Attention, BERT, GPT, RLHF, KV-cache, MoE |
-| AI Agents | Agentic loops, tool use, ReAct, MCP, benchmarks |
-| AI History | Turing (1950) through o1 (2024) |
-| Training Data | Annotation, RLHF, IAA, synthetic data, scaling |
-| Practical ML Engineering | Loss, RAG, embeddings, precision/recall |
-| Ethics & Safety | Hallucination, alignment, prompt injection, red-teaming |
+| **Foundations** | Tokens, context windows, temperature, overfitting, inference |
+| **Neural Networks** | Backprop, gradient descent, CNNs, RNNs, dropout, ResNets |
+| **Transformers & LLMs** | Self-attention, BERT, GPT, RLHF, KV-cache, MoE, fine-tuning |
+| **AI Agents** | Agentic loops, tool use, ReAct, MCP, multi-agent systems |
+| **AI History** | Turing (1950) through OpenAI o1 (2024) — the full arc |
+| **Training Data** | Annotation, IAA, synthetic data, scaling laws, eval hygiene |
+| **Practical ML Engineering** | Loss, RAG, embeddings, cosine similarity, precision/recall |
+| **Ethics & Safety** | Hallucination, alignment, prompt injection, red-teaming |
 
-## How it works
+By the time you finish a project, you'll have absorbed more AI fundamentals than most online courses teach in weeks.
 
-Registers a `UserPromptSubmit` hook — fires every time you hit enter. Picks a random fact from `data/ai-facts.json`, renders a full-width colored box directly to the terminal. `${CLAUDE_PLUGIN_ROOT}` is resolved by Claude Code at install time so the path always works.
+---
 
-## Add more facts
+## Why we built this
 
-Edit `data/ai-facts.json`:
+**[Drafted](https://joindrafted.com)** connects university students to real AI work — annotation tasks, RLHF feedback, agent evaluation, and more — for frontier AI labs building the next generation of models.
+
+We built drafted-learn because we kept seeing the same thing: students who could *use* AI tools but couldn't explain what was happening under the hood. They'd open Claude Code, ship something, and close it — without ever knowing what a token is, what RLHF did to the model they just prompted, or why hallucinations happen.
+
+That felt like a missed opportunity. You're already here. The spinner is already spinning. Might as well learn something.
+
+The students who understand the stack — not just the surface — are the ones who get hired to build it. That's what Drafted is for.
+
+---
+
+## Want to do more than learn?
+
+Drafted places students in paid AI work with real labs. If you want to go from *understanding* RLHF to *doing* RLHF, we have a spot for you.
+
+**Apply to work on AI training data:**
+[joindrafted.com/students](https://joindrafted.com/students)
+
+You'll annotate, evaluate, and help train the models you use every day. Flexible hours, paid per task, and you learn more in one project than a semester of coursework.
+
+University partners: USC, UChicago, Georgetown, U Miami — and growing.
+
+---
+
+## Add your own facts
+
+Edit `data/ai-facts.json` and add an entry:
 
 ```json
 {
   "id": "095",
   "category": "agents",
   "difficulty": "intermediate",
-  "text": "Your fact here.",
-  "source": "Your Source",
-  "tags": ["tag1", "tag2"]
+  "text": "Your fact here. Keep it under 200 chars so it fits cleanly.",
+  "source": "Your name or paper",
+  "tags": ["relevant", "tags"]
 }
 ```
 
-## License
+PRs welcome. If you know something worth knowing, share it.
 
-MIT — Drafted Labs
+---
+
+## Technical details
+
+- Hook: `UserPromptSubmit` — fires on every prompt, before Claude responds
+- Output: writes directly to `/dev/tty` so it never interferes with Claude's output
+- Width: auto-adapts to your terminal width (min 40, max 120)
+- Clickable CTA: OSC 8 hyperlink — works in iTerm2, Ghostty, WezTerm
+- No dependencies. Just Node.js, which you already have.
+
+---
+
+Built by [Drafted Labs](https://joindrafted.com) · MIT License
